@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MenteSana Soluciones Psicológicas - Portafolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #374151; /* gray-700 */
+            scroll-behavior: smooth;
+        }
+        .hero-section {
+            background-image: linear-gradient(to bottom, rgba(59, 130, 246, 0.7), rgba(37, 99, 235, 0.85)), url('https://placehold.co/1600x900/60a5fa/e0f2fe?text=Fondo+Inspirador+MenteSana');
+            background-size: cover;
+            background-position: center;
+        }
+        .company-title {
+            font-family: 'Playfair Display', serif;
+        }
+        nav a {
+            transition: color 0.3s ease;
+        }
+        nav a:hover {
+            color: #3b82f6; /* blue-500 */
+        }
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem; /* text-4xl */
+            color: #1f2937; /* gray-800 */
+            margin-bottom: 2rem; /* mb-8 */
+            text-align: center;
+            position: relative;
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: #3b82f6; /* blue-500 */
+            margin: 0.5rem auto 0;
+            border-radius: 2px;
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); /* shadow-2xl */
+        }
+        .btn {
+            padding: 0.75rem 1.75rem;
+            border-radius: 0.5rem; /* rounded-lg */
+            font-weight: 600; /* font-semibold */
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            cursor: pointer;
+            display: inline-block;
+            text-align: center;
+        }
+        .btn-primary {
+            background-color: #3b82f6; /* blue-500 */
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #2563eb; /* blue-600 */
+            transform: scale(1.03);
+        }
+        .btn-outline {
+            background-color: transparent;
+            color: #3b82f6; /* blue-500 */
+            border: 2px solid #3b82f6; /* blue-500 */
+        }
+        .btn-outline:hover {
+            background-color: #3b82f6; /* blue-500 */
+            color: white;
+        }
+        /* Message Box */
+        .message-box {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #10b981; /* emerald-500 */
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+            display: none; /* Hidden by default */
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+        .message-box.error {
+            background-color: #ef4444; /* red-500 */
+        }
+        .message-box.show {
+            display: block;
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+        .message-box.hide {
+            opacity: 0;
+            transform: translateX(-50%) translateY(20px);
+        }
+        /* Scroll to top button */
+        #scrollToTopBtn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #3b82f6;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: none; /* Hidden by default */
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            z-index: 999;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        #scrollToTopBtn:hover {
+            background-color: #2563eb;
+        }
+
+    </style>
+</head>
+<body class="bg-slate-50">
+
+    <div id="contactMessageBox" class="message-box">
+        <span id="contactMessageText"></span>
+    </div>
+
+    <button id="scrollToTopBtn" title="Volver arriba">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="company-title text-3xl text-blue-600">
+                <i class="fas fa-spa mr-2"></i>MenteSana
+            </a>
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="#nosotros" class="text-gray-600 hover:text-blue-500 font-medium">Nosotros</a>
+                <a href="#servicios" class="text-gray-600 hover:text-blue-500 font-medium">Servicios</a>
+                <a href="#proyectos" class="text-gray-600 hover:text-blue-500 font-medium">Proyectos</a>
+                <a href="#blog" class="text-gray-600 hover:text-blue-500 font-medium">Blog</a>
+                <a href="#contacto" class="btn btn-primary">Contacto</a>
+            </div>
+            <div class="md:hidden">
+                <button id="mobileMenuButton" class="text-gray-600 focus:outline-none">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </nav>
+        <div id="mobileMenu" class="md:hidden hidden bg-white shadow-lg py-2">
+            <a href="#nosotros" class="block px-6 py-2 text-gray-600 hover:bg-blue-50">Nosotros</a>
+            <a href="#servicios" class="block px-6 py-2 text-gray-600 hover:bg-blue-50">Servicios</a>
+            <a href="#proyectos" class="block px-6 py-2 text-gray-600 hover:bg-blue-50">Proyectos</a>
+            <a href="#blog" class="block px-6 py-2 text-gray-600 hover:bg-blue-50">Blog</a>
+            <a href="#contacto" class="block px-6 py-2 text-blue-500 font-semibold hover:bg-blue-50">Contacto</a>
+        </div>
+    </header>
+
+    <section class="hero-section text-white py-24 md:py-32">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="company-title text-4xl md:text-6xl font-bold mb-6 leading-tight">MenteSana Soluciones Psicológicas</h1>
+            <p class="text-lg md:text-2xl mb-10 max-w-3xl mx-auto">Innovando en bienestar emocional y autoconocimiento a través de la tecnología y la ciencia.</p>
+            <a href="#proyectos" class="btn bg-white text-blue-600 hover:bg-blue-100 text-lg">Descubre PsiqueTest <i class="fas fa-arrow-right ml-2"></i></a>
+        </div>
+    </section>
+
+    <section id="nosotros" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title">Sobre Nosotros</h2>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <img src="https://placehold.co/600x400/93c5fd/ffffff?text=Equipo+MenteSana" alt="[Imagen del equipo de MenteSana]" class="rounded-xl shadow-lg w-full">
+                </div>
+                <div class="text-lg text-gray-600 leading-relaxed">
+                    <p class="mb-4">En <strong>MenteSana Soluciones Psicológicas C.A.</strong>, estamos comprometidos con la promoción de la salud mental y el bienestar integral. Fundada en Caracas, Venezuela, nuestra misión es hacer accesibles herramientas y conocimientos psicológicos de alta calidad, combinando la experiencia profesional con la innovación tecnológica.</p>
+                    <p class="mb-4">Creemos firmemente que el autoconocimiento es el primer paso hacia una vida más plena y satisfactoria. Por ello, nos dedicamos a desarrollar soluciones que empoderen a las personas en su viaje de crecimiento personal.</p>
+                    <p class="font-semibold text-gray-700 mb-2">Nuestra Visión:</p>
+                    <p class="mb-4">Ser líderes en la transformación digital del bienestar emocional en Latinoamérica, ofreciendo plataformas y servicios que inspiren un cambio positivo en la vida de las personas.</p>
+                    <p class="font-semibold text-gray-700 mb-2">Nuestros Valores:</p>
+                    <ul class="list-disc list-inside space-y-1">
+                        <li><i class="fas fa-check-circle text-blue-500 mr-2"></i>Rigor Científico</li>
+                        <li><i class="fas fa-lightbulb text-blue-500 mr-2"></i>Innovación Constante</li>
+                        <li><i class="fas fa-heart text-blue-500 mr-2"></i>Empatía y Compasión</li>
+                        <li><i class="fas fa-shield-alt text-blue-500 mr-2"></i>Confidencialidad y Ética</li>
+                        <li><i class="fas fa-universal-access text-blue-500 mr-2"></i>Accesibilidad</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="servicios" class="py-16 md:py-24">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title">Nuestros Servicios</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="card p-8 text-center">
+                    <i class="fas fa-comments text-5xl text-blue-500 mb-6"></i>
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Terapia Individual Online</h3>
+                    <p class="text-gray-600 leading-relaxed">Sesiones personalizadas con psicólogos calificados para abordar tus necesidades emocionales y alcanzar tus objetivos de bienestar.</p>
+                </div>
+                <div class="card p-8 text-center">
+                    <i class="fas fa-users text-5xl text-blue-500 mb-6"></i>
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Talleres y Webinars</h3>
+                    <p class="text-gray-600 leading-relaxed">Programas grupales interactivos sobre temas clave como manejo del estrés, inteligencia emocional, y desarrollo personal.</p>
+                </div>
+                <div class="card p-8 text-center">
+                    <i class="fas fa-laptop-code text-5xl text-blue-500 mb-6"></i>
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Plataformas Digitales</h3>
+                    <p class="text-gray-600 leading-relaxed">Desarrollo de herramientas innovadoras como PsiqueTest para facilitar el autoconocimiento y la evaluación psicológica accesible.</p>
+                </div>
+                 <div class="card p-8 text-center">
+                    <i class="fas fa-building text-5xl text-blue-500 mb-6"></i>
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Consultoría para Empresas</h3>
+                    <p class="text-gray-600 leading-relaxed">Programas de bienestar laboral, manejo de estrés organizacional y desarrollo de habilidades blandas para equipos.</p>
+                </div>
+                <div class="card p-8 text-center">
+                    <i class="fas fa-graduation-cap text-5xl text-blue-500 mb-6"></i>
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Recursos Educativos</h3>
+                    <p class="text-gray-600 leading-relaxed">Artículos, guías y material informativo validado para fomentar la psicoeducación y el entendimiento de la salud mental.</p>
+                </div>
+                 <div class="card p-8 text-center">
+                    <i class="fas fa-brain text-5xl text-blue-500 mb-6"></i>
+                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Evaluaciones Psicológicas</h3>
+                    <p class="text-gray-600 leading-relaxed">Aplicación de pruebas psicométricas para diversos fines (clínico, vocacional, selección) con informes detallados.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="proyectos" class="py-16 md:py-24 bg-blue-50">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title">Proyecto Destacado: PsiqueTest</h2>
+            <div class="card md:flex items-center p-0">
+                <div class="md:w-1/2">
+                    <img src="https://placehold.co/800x600/3b82f6/ffffff?text=Interfaz+PsiqueTest" alt="[Imagen de la interfaz de PsiqueTest]" class="w-full h-full object-cover md:rounded-l-xl md:rounded-r-none rounded-t-xl">
+                </div>
+                <div class="md:w-1/2 p-8 md:p-12">
+                    <h3 class="company-title text-3xl text-blue-600 mb-4">PsiqueTest</h3>
+                    <p class="text-gray-600 leading-relaxed mb-6">PsiqueTest es nuestra innovadora plataforma web diseñada para ofrecer tests de personalidad validados científicamente. Con una interfaz intuitiva y resultados claros, PsiqueTest te guía en un viaje de autoconocimiento, ayudándote a comprender tus rasgos, fortalezas y áreas de oportunidad.</p>
+                    <ul class="space-y-2 mb-8 text-gray-600">
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Test de los Cinco Grandes (Big Five) implementado.</li>
+                        <li><i class="fas fa-file-alt text-green-500 mr-2"></i>Informes básicos gratuitos y opción premium (simulada en MVP).</li>
+                        <li><i class="fas fa-user-lock text-green-500 mr-2"></i>Sistema de autenticación simulado para perfiles.</li>
+                        <li><i class="fas fa-blog text-green-500 mr-2"></i>Blog integrado con artículos de psicología.</li>
+                        <li><i class="fas fa-mobile-alt text-green-500 mr-2"></i>Diseño completamente responsivo.</li>
+                    </ul>
+                    <a href="#" onclick="alert('Redireccionando a PsiqueTest (simulado)...')" class="btn btn-primary">Visitar PsiqueTest (MVP) <i class="fas fa-external-link-alt ml-2"></i></a>
+                    <a href="#" onclick="alert('Viendo README en GitHub (simulado)...')" class="btn btn-outline ml-0 mt-3 sm:ml-3 sm:mt-0">Ver README en GitHub</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="blog" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title">Desde Nuestro Blog</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="card">
+                    <img src="https://placehold.co/600x350/60a5fa/ffffff?text=Big+Five" alt="[Imagen del artículo sobre Big Five]" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2 text-gray-800">¿Qué son los Cinco Grandes Rasgos de Personalidad?</h3>
+                        <p class="text-sm text-gray-500 mb-3">Publicado: 10 Mayo, 2025</p>
+                        <p class="text-gray-600 leading-relaxed mb-4">Una introducción al modelo Big Five y su importancia en la psicología moderna...</p>
+                        <a href="#" onclick="alert('Leyendo más sobre Big Five (simulado)...')" class="font-semibold text-blue-500 hover:text-blue-600">Leer Más <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                    </div>
+                </div>
+                <div class="card">
+                     <img src="https://placehold.co/600x350/34d399/ffffff?text=Bienestar+Emocional" alt="[Imagen del artículo sobre Bienestar Emocional]" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2 text-gray-800">Cómo Mejorar tu Bienestar Emocional Diario</h3>
+                        <p class="text-sm text-gray-500 mb-3">Publicado: 12 Mayo, 2025</p>
+                        <p class="text-gray-600 leading-relaxed mb-4">Pequeños hábitos que puedes incorporar en tu rutina para fortalecer tu salud mental...</p>
+                        <a href="#" onclick="alert('Leyendo más sobre Bienestar (simulado)...')" class="font-semibold text-blue-500 hover:text-blue-600">Leer Más <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://placehold.co/600x350/fbbf24/ffffff?text=Autoconocimiento" alt="[Imagen del artículo sobre Autoconocimiento]" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2 text-gray-800">La Importancia del Autoconocimiento</h3>
+                        <p class="text-sm text-gray-500 mb-3">Publicado: 15 Mayo, 2025</p>
+                        <p class="text-gray-600 leading-relaxed mb-4">Explorando por qué conocerse a uno mismo es el primer paso para una vida plena...</p>
+                        <a href="#" onclick="alert('Leyendo más sobre Autoconocimiento (simulado)...')" class="font-semibold text-blue-500 hover:text-blue-600">Leer Más <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-12">
+                <a href="#" onclick="alert('Visitando el blog completo (simulado)...')" class="btn btn-primary text-lg">Visitar Blog Completo</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto" class="py-16 md:py-24 bg-slate-100">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title">Contáctanos</h2>
+            <div class="max-w-2xl mx-auto bg-white p-8 md:p-12 rounded-xl shadow-xl">
+                <p class="text-gray-600 text-center mb-8 text-lg">¿Tienes preguntas o te gustaría saber más sobre nuestros servicios? Completa el formulario o utiliza nuestros datos de contacto.</p>
+                <form id="contactForm" class="space-y-6">
+                    <div>
+                        <label for="contactName" class="block text-sm font-medium text-gray-700 mb-1">Nombre Completo</label>
+                        <input type="text" id="contactName" name="contactName" required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label for="contactEmail" class="block text-sm font-medium text-gray-700 mb-1">Correo Electrónico</label>
+                        <input type="email" id="contactEmail" name="contactEmail" required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label for="contactSubject" class="block text-sm font-medium text-gray-700 mb-1">Asunto</label>
+                        <input type="text" id="contactSubject" name="contactSubject" required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label for="contactMessage" class="block text-sm font-medium text-gray-700 mb-1">Mensaje</label>
+                        <textarea id="contactMessage" name="contactMessage" rows="5" required class="w-full px-4 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-full text-lg">Enviar Mensaje <i class="fas fa-paper-plane ml-2"></i></button>
+                </form>
+                <div class="mt-10 text-center text-gray-600">
+                    <p class="font-semibold mb-2">También puedes encontrarnos en:</p>
+                    <p><i class="fas fa-map-marker-alt mr-2 text-blue-500"></i>Av. Principal, Edif. MenteSana, Piso 3, Caracas, Venezuela (Ficticio)</p>
+                    <p><i class="fas fa-phone mr-2 text-blue-500"></i>+58 (212) 555-0101 (Ficticio)</p>
+                    <p><i class="fas fa-envelope mr-2 text-blue-500"></i>info@mentesana.com.ve (Ficticio)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-800 text-gray-300 py-12">
+        <div class="container mx-auto px-6 text-center">
+            <a href="#" class="company-title text-3xl text-white mb-4 inline-block">
+                MenteSana
+            </a>
+            <p class="mb-6 max-w-xl mx-auto text-sm">Promoviendo el bienestar emocional y el autoconocimiento a través de soluciones psicológicas innovadoras y accesibles.</p>
+            <div class="flex justify-center space-x-6 mb-6">
+                <a href="#" class="text-gray-400 hover:text-white text-2xl"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white text-2xl"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white text-2xl"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white text-2xl"><i class="fab fa-twitter"></i></a>
+            </div>
+            <p class="text-sm">&copy; 2025 MenteSana Soluciones Psicológicas C.A. Todos los derechos reservados.</p>
+            <p class="text-xs mt-2">Diseñado con fines demostrativos.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const mobileMenu = document.getElementById('mobileMenu');
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            // Close menu when a link is clicked
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Contact Form Simulation
+        const contactForm = document.getElementById('contactForm');
+        const contactMessageBox = document.getElementById('contactMessageBox');
+        const contactMessageText = document.getElementById('contactMessageText');
+
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const name = document.getElementById('contactName').value;
+                // Simulate form submission
+                contactMessageText.textContent = `Gracias por tu mensaje, ${name}. Nos pondremos en contacto contigo pronto. (Simulación)`;
+                contactMessageBox.className = 'message-box show'; // Reset and show
+
+                setTimeout(() => {
+                    contactMessageBox.classList.add('hide');
+                    setTimeout(() => { contactMessageBox.classList.remove('show', 'hide'); }, 500);
+                }, 4000);
+                contactForm.reset();
+            });
+        }
+
+        // Scroll to Top Button
+        const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+        window.onscroll = function() {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                scrollToTopBtn.style.display = "flex";
+            } else {
+                scrollToTopBtn.style.display = "none";
+            }
+        };
+        scrollToTopBtn.addEventListener('click', function() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        });
+
+    </script>
+</body>
+</html>
